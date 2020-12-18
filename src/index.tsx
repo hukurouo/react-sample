@@ -59,10 +59,10 @@ class Board extends React.Component<typeBoard> {
   render() {
     return (
       <div>
-        { Array(0,0,0).map((_val,i)=>{
+        { Array(3).fill('').map((_val,i)=>{
           return (
             <div className="board-row">
-              { Array(0,0,0).map((_val,j)=>{
+              { Array(3).fill('').map((_val,j)=>{
                 return (this.renderSquare(3*i + j));
               })}
             </div>
