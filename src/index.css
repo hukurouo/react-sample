@@ -1,35 +1,21 @@
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
-
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-}
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .square {
-  background: #fff;
+  background: rgb(255, 255, 255);
   border: 1px solid #999;
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 54px;
+  height: 54px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 54px;
 }
 
 .square_highlight {
@@ -38,13 +24,13 @@ ol, ul {
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 54px;
+  height: 54px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 54px;
 }
 
 .square:focus {
@@ -55,14 +41,10 @@ ol, ul {
   background: #ddd;
 }
 
-.game {
-  display: flex;
-  flex-direction: column;
-  flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
-  justify-content: center; /* 子要素をflexboxにより中央に配置する */
-  align-items: center;  /* 子要素をflexboxにより中央に配置する */
+.square_highlight:focus {
+  outline: none;
 }
 
-.game-info {
-  margin-left: 20px;
+.kbd-navigation .square_highlight:focus {
+  background: #ddd;
 }

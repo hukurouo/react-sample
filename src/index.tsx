@@ -37,7 +37,7 @@ function Square(props: typeSquare) {
     );
   } else {
     return (
-      <button className="square" onClick={props.onClick}>
+      <button className="square" onClick={props.onClick} key={props.value}>
         {props.value}
       </button>
     );
@@ -61,9 +61,13 @@ class Board extends React.Component<typeBoard> {
       <div>
         { Array(3).fill('').map((_val,i)=>{
           return (
-            <div className="board-row">
+            <div className="" key={i}>
               { Array(3).fill('').map((_val,j)=>{
-                return (this.renderSquare(3*i + j));
+                return (
+                  <b key={3*i+j}>
+                  {this.renderSquare(3*i + j)}
+                  </b>
+                  );
               })}
             </div>
           );
@@ -142,10 +146,10 @@ class Game extends React.Component<{}, typeGameState> {
     
     const moves = history.map((step, move) => {
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>
+        <li className="mx-auto" key={move}>
+          <button className="bg-gray-400 hover:bg-gray-700 text-white px-2 py-1 m-1 rounded" onClick={() => this.jumpTo(move)}>
              {stepNum === move 
-                ? <b>{step.colrow}</b>
+                ? <b className="underline">{step.colrow}</b>
                 : step.colrow
               }
           </button>
@@ -156,10 +160,10 @@ class Game extends React.Component<{}, typeGameState> {
     const movesReverse = history.slice(0).reverse().map((step, move) => {
       move = history.length - move + - 1
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>
+        <li className="mx-auto" key={move} >
+          <button className="bg-gray-400 hover:bg-gray-700 text-white px-2 py-1 m-1 rounded" onClick={() => this.jumpTo(move)}>
              {stepNum === move 
-                ? <b>{step.colrow}</b>
+                ? <b className="underline">{step.colrow}</b>
                 : step.colrow
               }
           </button>
@@ -169,16 +173,18 @@ class Game extends React.Component<{}, typeGameState> {
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner.winner;
+      status = '🎉 Winner: ' + winner.winner ;
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      if (history.length === 10 && stepNum === 9){status = 'draw game!'}
     }
 
-    return (
-      <div className="game">
-        <div><h1>3目並べ(React Tutorial)</h1></div>
 
-        <div className="game-board">
+    return (
+      <div className="mx-auto p-5">
+        <h1　className="text-3xl font-semibold p-5 text-center "> ⭕ tic-tac-toe ❌ </h1>
+        <br/>
+        <div className="flex justify-center">
           <Board
             isHighLights={this.state.isHighLights}
             squares={current.squares}
@@ -186,17 +192,16 @@ class Game extends React.Component<{}, typeGameState> {
           />
         </div>
         <br/>
-        <div>{status}</div>
-        <div>{String(this.state.isHighLights)}</div>
-        <div className="game-info">
-          
-          <ul>
-          <button onClick={this.listToggle}>
+        <div className="p-5 text-2xl text-center font-black">{status}</div>
+        <div className="text-center item-center pb-5">
+          <button onClick={this.listToggle} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ">
              toggle!
-          </button></ul>
+          </button>
+        </div>
+        <div className="flex justify-center">
           {this.state.listIsReverse
-            ? <ol reversed>{movesReverse}</ol>
-            : <ol>{moves}</ol>
+            ? <ol reversed className="list-decimal px-10">{movesReverse}</ol>
+            : <ol className="list-decimal px-10">{moves}</ol>
           }
         </div>
       </div>
@@ -235,6 +240,8 @@ function calculateWinner(squares: string[]) {
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <div className="container min-h-screen justify-center max-w-lg mx-auto">
+    <Game />
+  </div>,
   document.getElementById('root')
 );
